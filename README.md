@@ -38,9 +38,11 @@ $$
 $$
 
 This simplifies to:
+### 
 $$
 \Theta(n \log n)
 $$
+
 Thus, the span of the parallel merge sort algorithm, in terms of worst-case $\Theta$, is $\Theta(n \log n)$.
 Also it took me this long to learn how to do multiline Latex in markdown and I'm glad I finally got it this looks SO proffesional and is much better than a mess of equations in line with explanations.
 
