@@ -32,9 +32,11 @@ where $T(n/2)$ represents the span of sorting one half of the array. as stated e
 2) At the second level, it becomes $T(n/4) + \Theta(n/2) + \Theta(n)$. This is because the array is divided into two halves at each level of recursion.
 3) This pattern continues, adding up to $\Theta(n)$ at each level of recursion until the size of the seach subsequent recursion reaches 1.
 The depth of the recursion, or number of DAG levels, is $\log_2(n)$ because the array size is halved at each level. Since each level contributes $\Theta(n)$ to the span due to the merge operation, the total span of the algorithm is:
+#### Fancy Render
 $$
 \Theta(n) + \Theta(n) + \cdots + \Theta(n) \text{ (repeated $\log_2(n)$ times)}
 $$
+
 This simplifies to:
 $$
 \Theta(n \log n)
