@@ -1,4 +1,3 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/Dt3ukIt2)
 # Parallel Mergesort
 
 Implement a parallel version of mergesort (both the original recursive and the
@@ -13,3 +12,35 @@ the function and run automatically when you commit through a GitHub action.
 
 What is the span of the parallel program, in terms of worst-case $\Theta$? Hint:
 It may help to consider the DAG of the parallel program.
+
+### Answer
+
+Assuming no overhead for the worker threads, the span of the parallel program is $\Theta(n log_2(n))$. As determined by the components outlined below. [The span in this case being the longest path of the DAG for a parallel program.]
+
+1. Divide Step: A midpoint is calculated and the array is divided into two halves. all of these are constant time operations time, i.e., $\Theta(1)$.
+2. Recursive Sort: Each half is sorted recursively. Since this happens in parallel, the time for this step is the time taken to sort one half because both halves are being sorted simultaneously.
+3. Merge Step: After the halves are sorted, the merge helper function is called. The merging of two halves of size $n/2$ each takes $\Theta(n)$ time.
+Given that the recursive sorting is the dominant factor and occurs in parallel, the "recurrence relation" for the span $T(n)$ of the parallel merge sort can be expressed as follows:
+
+$T(n) = T(n/2) + \Theta(n)$
+
+where $T(n/2)$ represents the span of sorting one-half of the array. As stated earlier because this sorting happens in parallel we only consider the span of one-half.
+
+#### Solving this recurrence relation:
+
+1) At the first level of recursion, the span is $T(n/2) + \Theta(n)$.
+2) At the second level, it becomes $T(n/4) + \Theta(n/2) + \Theta(n)$. This is because the array is divided into two halves at each level of recursion.
+3) This pattern continues, adding up to $\Theta(n)$ at each level of recursion until the size of the search subsequent recursion reaches 1.
+The depth of the recursion, or number of DAG levels, is $\log_2(n)$ because the array size is halved at each level. Since each level contributes $\Theta(n)$ to the span due to the merge operation, the total span of the algorithm is:
+
+$$
+\Theta(n) + \Theta(n) + \cdots + \Theta(n) \text{ (repeated $\log_2(n)$ times)}
+$$
+
+This simplifies to:
+
+$$
+\Theta(n \log n)
+$$
+
+Thus, the span of the parallel merge sort algorithm is $\Theta(n \log n)$. In terms of the asymptotic time complexity of the algorithm, parallelizing mergesort does not change the upper bound of $\Theta(n \log n)$ for the span. So in the worst case, the parallel merge sort algorithm has the same asymptotic span as the average-case time complexity of the sequential merge sort algorithm, which is $\Theta(n \log n)$. This means that parallelizing merge sort does not improve the asymptotic time complexity in the worst case beyond what the normal sequential algorithm does, it only provides potential speedup through parallel execution assuming overhead isn't too cumbersome. Ideally, you would have regular mergesort for smaller arrays and then a parallelized version only for very large arrays, where the cost of the overhead is outweighed by the benefits of parallel execution.
