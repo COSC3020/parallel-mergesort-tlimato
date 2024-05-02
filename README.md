@@ -24,13 +24,13 @@ Given that the recursive sorting is the dominant factor and occurs in parallel, 
 
 $T(n) = T(n/2) + \Theta(n)$
 
-where $T(n/2)$ represents the span of sorting one half of the array. as stated earlier because this sorting happens in parallel we only consider the span of one half.
+where $T(n/2)$ represents the span of sorting one-half of the array. As stated earlier because this sorting happens in parallel we only consider the span of one-half.
 
 #### Solving this recurrence relation:
 
 1) At the first level of recursion, the span is $T(n/2) + \Theta(n)$.
 2) At the second level, it becomes $T(n/4) + \Theta(n/2) + \Theta(n)$. This is because the array is divided into two halves at each level of recursion.
-3) This pattern continues, adding up to $\Theta(n)$ at each level of recursion until the size of the seach subsequent recursion reaches 1.
+3) This pattern continues, adding up to $\Theta(n)$ at each level of recursion until the size of the search subsequent recursion reaches 1.
 The depth of the recursion, or number of DAG levels, is $\log_2(n)$ because the array size is halved at each level. Since each level contributes $\Theta(n)$ to the span due to the merge operation, the total span of the algorithm is:
 
 $$
@@ -43,5 +43,4 @@ $$
 \Theta(n \log n)
 $$
 
-Thus, the span of the parallel merge sort algorithm, in terms of worst-case $\Theta$, is $\Theta(n \log n)$.
-Also it took me this long to learn how to do multiline Latex in markdown and I'm glad I finally got it this looks SO proffesional and is much better than a mess of equations in line with explanations.
+Thus, the span of the parallel merge sort algorithm is $\Theta(n \log n)$. In terms of the asymptotic time complexity of the algorithm, parallelizing mergesort does not change the upper bound of $\Theta(n \log n)$ for the span. So in the worst case, the parallel merge sort algorithm has the same asymptotic span as the average-case time complexity of the sequential merge sort algorithm, which is $\Theta(n \log n)$. This means that parallelizing merge sort does not improve the asymptotic time complexity in the worst case beyond what the normal sequential algorithm does, it only provides potential speedup through parallel execution assuming overhead isn't too cumbersome. Ideally, you would have regular mergesort for smaller arrays and then a parallelized version only for very large arrays, where the cost of the overhead is outweighed by the benefits of parallel execution.
